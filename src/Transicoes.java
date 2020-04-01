@@ -10,11 +10,11 @@ public class Transicoes {
 		super();
 	}
 	
-public void addOrigem(Arcos arco) {
+	public void addOrigem(Arcos arco) {
 	this.origem.add(arco);
 }
 
-public void addDestino(Arcos arco) {
+	public void addDestino(Arcos arco) {
 	this.destino.add(arco);
 }
 
