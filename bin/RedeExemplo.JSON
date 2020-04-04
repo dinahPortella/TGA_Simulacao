@@ -1,5 +1,5 @@
 {"Rede":{
-      "lugares": [{"nome": "lugar1"}, {"nome": "lugar2"}, {"nome": "lugar3"}],
+      "lugares": [{"nome": "lugar1", "marcas": 1}, {"nome": "lugar2", "marcas": 0}, {"nome": "lugar3", "marcas": 0}],
       "transicoes": [{"nome":  "transicao1"}, {"nome": "transicao2"}],
       "arcos": [{"nome": "arco1", "origem": "lugar1", "destino": "transicao1", "peso": 1},
                 {"nome": "arco2", "origem": "transicao1", "destino": "lugar2", "peso": 2},
