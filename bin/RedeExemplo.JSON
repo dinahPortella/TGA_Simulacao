@@ -1,0 +1,10 @@
+{"Rede":{
+      "lugares": [{"nome": "lugar1"}, {"nome": "lugar2"}, {"nome": "lugar3"}],
+      "transicoes": [{"nome":  "transicao1"}, {"nome": "transicao2"}],
+      "arcos": [{"nome": "arco1", "origem": "lugar1", "destino": "transicao1", "peso": 1},
+                {"nome": "arco2", "origem": "transicao1", "destino": "lugar2", "peso": 2},
+                {"nome": "arco3", "origem": "lugar2", "destino": "transicao2", "peso": 1},
+                {"nome": "arco4", "origem": "transicao2", "destino": "lugar3", "peso": 2}]
+
+}
+}
