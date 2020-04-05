@@ -1,46 +1,67 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class RedesPetri {
 
+		/*NESSA CLASSE SERÁ LIDO O ARQUIVO JSON QUE ESPECIFICA UMA REDE,
+		* MONTADA A REDE E EXECUTADA*/
 
-	private List<Lugares> lugares = new ArrayList<Lugares>();
-	private List<Transicoes> transicoes = new ArrayList<Transicoes>();
-	private List<Arcos> arcos = new ArrayList<Arcos>();
+		/*ALGUSN MÉTODOS QUE USO AQUI AINDA NÃO EXISTEM, PRECISAM SER CRIADOS*/
+
+	private List<Lugar> lugares = new ArrayList<Lugar>();
+	private List<Transicao> transicoes = new ArrayList<Transicao>();
+	private List<Arco> arcos = new ArrayList<Arco>();
+	private String nome;
+	/*Arquivo JSON  = Objeto hipotético que seria a rede lida de um JSON*/
 	
-	public RedesPetri(String nome) {
+	public RedesPetri(String nome, Arquivo JSON) {
 		super();
+		this.nome = nome;
+		montaRede(JSON);
 	}
-	
-	public ArrayList<Arcos> getArcos(Transicoes t, Direcao d) {
-		ArrayList<Arcos> list = new ArrayList<>();
-		for (Arcos arcos : arcos) {
-			if (arcos.getDirecao() == d) {
-				if (arcos.getTransicoes().equals(t)) {
-					list.add(arcos);
+
+	/*NESSE MÉTODO, APLICA O JACKSON PRA LER O JSON E DESSERIALIZAR OS OBJETOS*/
+	private void montaRede(Arquivo JSON){
+	}
+
+
+
+	public void processaRede() {
+		ArrayList<Arco> list = new ArrayList<>();
+		boolean redeAcabou = false;
+
+		while(redeAcabou == false) {
+			int contAlteracoes = 0;
+			for (Arco arco : arcos){
+				/*Testa se tem algum arco que pode disparar uma transação*/
+				Lugar lugarAtual;
+				if( lugares.get(arco.getOrigem()) != null) {
+					lugarAtual = lugares.get(arco.getOrigem());
+					if(lugarAtual.getMarcas()>=arco.getPeso()){
+						/*Dispara o arco da transicao alterando as marcas do Lugar de destino do mesmo*/
+						lugares.update(transicoes.get(arco.getDestino()).dispara());
+						contAlteracoes++;
+
+					}
 				}
 			}
 		}
-		return list;
+
+
 	}
+
+
 	
-	public List<Lugares> getLugares() {
+	public List<Lugar> getLugares() {
 		return lugares;
 	}
-	public void setLugares(List<Lugares> lugares) {
-		this.lugares = lugares;
-	}
-	public List<Transicoes> getTransicoes() {
+	public List<Transicao> getTransicoes() {
 		return transicoes;
 	}
-	public void setTransicoes(List<Transicoes> transicoes) {
-		this.transicoes = transicoes;
-	}
-	public List<Arcos> getArcos() {
+	public List<Arco> getArcos() {
 		return arcos;
-	}
-	public void setArcos(List<Arcos> arcos) {
-		this.arcos = arcos;
 	}
 	
 	/*

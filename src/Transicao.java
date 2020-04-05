@@ -19,5 +19,9 @@ public class Transicao extends Node {
 	this.destino.add(arco);
 }
 
+	public void dispara(){
+		/*Escolhe aleatoriamente entre os arcos que this tranicao tem pra disparar, casoo seja mais de um*/
+	}
+
 
 }
