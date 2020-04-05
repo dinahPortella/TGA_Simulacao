@@ -23,7 +23,7 @@ public class Arco {
 	private void defineDirecao(Node origem, Node destino){
 		if(origem.getClass().getName() == "Lugar" && destino.getClass().getName() == "Transicao"){
 			this.lugar = (Lugar)origem;
-			this.transicao = transicao.(Transicao)destino;
+			this.transicao = (Transicao)destino;
 		}
 		else if(origem.getClass().getName() == "Transicao" && destino.getClass().getName() == "Lugar"){
 			this.lugar = (Lugar)destino;
