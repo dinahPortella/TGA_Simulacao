@@ -1,5 +1,5 @@
 
-public class Lugar extends Node{
+public class Lugar extends Nodo {
 
     private String nome;
     private int marcas;

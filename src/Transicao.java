@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Transicao extends Node {
+public class Transicao extends Nodo {
 
 	private String nome;
 	private List<Arco> origem = new ArrayList<Arco>();

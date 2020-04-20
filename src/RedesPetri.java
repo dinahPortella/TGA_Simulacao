@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class RedesPetri {
 
@@ -13,6 +10,7 @@ public class RedesPetri {
 	private List<Lugar> lugares = new ArrayList<Lugar>();
 	private List<Transicao> transicoes = new ArrayList<Transicao>();
 	private List<Arco> arcos = new ArrayList<Arco>();
+	private Map<String, Nodo> rede = new HashMap<>();
 	private String nome;
 	/*Arquivo JSON  = Objeto hipotético que seria a rede lida de um JSON*/
 	
