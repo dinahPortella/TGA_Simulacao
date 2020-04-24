@@ -37,7 +37,7 @@ public class RedesPetri {
 				Lugar lugarAtual;
 				if( lugares.get(arco.getOrigem()) != null) {
 					lugarAtual = lugares.get(arco.getOrigem());
-					if(lugarAtual.getMarcas()>=arco.getPeso()){
+					if(lugarAtual.getTotal()>=arco.getTotal()){
 						/*Dispara o arco da transicao alterando as marcas do Lugar de destino do mesmo*/
 						lugares.update(transicoes.get(arco.getDestino()).dispara());
 						contAlteracoes++;
