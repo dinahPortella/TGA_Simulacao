@@ -1,7 +1,6 @@
 public enum NodeType {
 
     UNDEFIDED("", null), // 0
-    ARCO("Arco", Arco.class),
     LUGAR("Lugar", Lugar.class),
     TRANSICAO("Transição", Transicao.class);
 

@@ -1,13 +1,31 @@
 public class Nodo {
 
+    private int id = 0;
     private String nome;
     private int tipo;
-    private int total;
+    protected int total;
 
-    public Nodo(String nome, int tipo, int total) {
+    public Nodo() {
+        super();
+    }
+
+    public Nodo(int id, String nome, int tipo, int total) {
+        this.id = id;
         this.nome = nome;
         this.tipo = tipo;
         this.total = total;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public long getUid() {
+        return Long.parseLong(String.valueOf(tipo) + String.valueOf(id));
     }
 
     public String getNome() {

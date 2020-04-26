@@ -50,4 +50,9 @@ public class Teste {
 		return pai + "  " + transicao +  "  " + filho + (raiz ? "raiz " : "") + "\n";
 	}
 
+	public static void main(String args[]) {
+		final Nodo nodo = new Nodo(1, "bob", NodeType.LUGAR.ordinal(), 1);
+		System.out.println(nodo.getUid());
+	}
+
 }

@@ -1,37 +1,41 @@
+public class Arco {
 
-public class Arco extends Nodo{
+    private int total;
+    private long origem;
+    private long destino;
 
-	private Lugar lugar;
-	private Transicao transicao;
+    public Arco() {
+        super();
+    }
 
-	/*A EXECUÇÃO DA REDE SE DARÁ EM CIMA DOS ARCOS, ELES SERÃO LIDOS E AJUSTAÇÃO AS MARCAS DOS LUGARES*/
-	private Arco(String name, Nodo origem, Nodo destino, int total) {
-		super(name, NodeType.ARCO.ordinal(), total);
-		this.defineDirecao(origem, destino);
-	}
+    public Arco(int total, long origem, long destino) {
+        this.total = total;
+        this.origem = origem;
+        this.destino = destino;
+    }
 
-	public Lugar getLugar() {
-		return lugar;
-	}
+    public int getTotal() {
+        return total;
+    }
 
-	public Transicao getTransicao() {
-		return transicao;
-	}
+    public void setTotal(int total) {
+        this.total = total;
+    }
 
-	private void defineDirecao(Nodo origem, Nodo destino){
+    public long getOrigem() {
+        return origem;
+    }
 
-		if(origem.getTipo() == NodeType.LUGAR.ordinal() && destino.getTipo() == NodeType.TRANSICAO.ordinal()){
-			this.lugar = (Lugar)origem;
-			this.transicao = (Transicao)destino;
-		}
+    public void setOrigem(long origem) {
+        this.origem = origem;
+    }
 
-		else if(origem.getTipo() == NodeType.TRANSICAO.ordinal() && destino.getTipo() == NodeType.LUGAR.ordinal()){
-			this.lugar = (Lugar)destino;
-			this.transicao = (Transicao)origem;
-		}
-		else {
-			throw new IllegalArgumentException("Parâmetro(s) de arco inválido(s)");
-		}
-	}
+    public long getDestino() {
+        return destino;
+    }
+
+    public void setDestino(long destino) {
+        this.destino = destino;
+    }
 
 }
