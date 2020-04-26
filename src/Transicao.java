@@ -5,8 +5,6 @@ public class Transicao extends Nodo {
 
 	private List<Conexao> entradas;
 	private List<Conexao> saidas;
-	private boolean end = false;
-	private Transicao proxima;
 	private int estado;
 	private int escolhida;
 
@@ -40,18 +38,6 @@ public class Transicao extends Nodo {
 		this.saidas.add(destino);
 	}
 
-	public Transicao getProxima() {
-		return proxima;
-	}
-
-	public void setProxima(Transicao proxima) {
-		this.proxima = proxima;
-	}
-
-	public void dispara(){
-		/*Escolhe aleatoriamente entre os arcos que this tranicao tem pra disparar, casoo seja mais de um*/
-	}
-
 	public boolean habilitada() {
 		return estado == TransitionState.HABILITADA.ordinal();
 	}
@@ -80,6 +66,7 @@ public class Transicao extends Nodo {
 		for (Conexao conexao : entradas) {
 			if (conexao.getLugar().getTotal() < conexao.getTotal()) {
 				out = false;
+				break;
 			}
 		}
 		if (out) {

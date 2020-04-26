@@ -8,6 +8,9 @@ public class Conexao {
 
 	/*A EXECUÇÃO DA REDE SE DARÁ EM CIMA DOS ARCOS, ELES SERÃO LIDOS E AJUSTAÇÃO AS MARCAS DOS LUGARES*/
 	public Conexao(Nodo origem, Nodo destino, int total) {
+		if (total < 1) {
+			total = 1;
+		}
 		this.total = total;
 		this.defineDirecao(origem, destino);
 	}
