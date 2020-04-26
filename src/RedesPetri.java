@@ -1,5 +1,6 @@
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.vandermeer.asciitable.*;
 
 import java.io.Console;
 import java.io.File;
@@ -13,8 +14,6 @@ public class RedesPetri {
 		/*NESSA CLASSE SERÁ LIDO O ARQUIVO JSON QUE ESPECIFICA UMA REDE,
 		* MONTADA A REDE E EXECUTADA*/
 
-		/*ALGUSN MÉTODOS QUE USO AQUI AINDA NÃO EXISTEM, PRECISAM SER CRIADOS*/
-
 	final static ObjectMapper mapper = new ObjectMapper();
 	private static List<Lugar> lugares = new ArrayList<>();
 	private static List<Transicao> transicoes = new ArrayList<>();
@@ -24,7 +23,7 @@ public class RedesPetri {
 	private static List<Nodo> nodos;
 	private static String nome;
 	private static boolean preparado;
-	/*Arquivo JSON  = Objeto hipotético que seria a rede lida de um JSON*/
+	/*Arquivo JSON = Objeto hipotético correspondente a rede lida de um JSON*/
 	
 //	public RedesPetri(String nome, Arquivo JSON) {
 //		super();
@@ -33,7 +32,7 @@ public class RedesPetri {
 //	}
 
 	/*NESSE MÉTODO, APLICA O JACKSON PRA LER O JSON E DESSERIALIZAR OS OBJETOS*/
-//	private void montaRede(Arquivo JSON){
+//		private void montaRede(Arquivo JSON){
 //	}
 
 	public static void main(String... args) {
@@ -46,7 +45,7 @@ public class RedesPetri {
 		int opcao = 0;
 		do {
 			System.out.println("0 - Finalizar o programa");
-			System.out.println("1 - Veriica o estado atual da rede");
+			System.out.println("1 - Verifica o estado atual da rede");
 			System.out.println("2 - Executa um ciclo e exibe o resultado");
 			System.out.println("3 - Executa x ciclos e exibe o resultado");
 			opcao = in.nextInt();
@@ -54,14 +53,17 @@ public class RedesPetri {
 			switch (opcao) {
 				case 1:
 					verifica();
+					renderTable();
 					break;
 				case 2:
 					executa();
+					renderTable();
 					break;
 				case 3:
 					System.out.println("Quantos ciclos deseja executar:");
 					int total = in.nextInt();
 					rodaNciclos(total);
+					renderTable();
 					break;
 				default:
 					System.out.println("Opção Inválida!");
@@ -69,6 +71,7 @@ public class RedesPetri {
 			}
 		} while (opcao != 0);
 	}
+
 	/**
 	 * Método temporário, utilizado para testes, deve ser removido, passa o endereço do arquivo input
 	 * @return - o local do arquivo rede.json
@@ -104,7 +107,7 @@ public class RedesPetri {
 	}
 
 	/**
-	 * Popula o mapa da rede com os nos, e também cria os lugares e transições e os poem em suas devidas listas
+	 * Popula o mapa da rede com os nos, e também cria os lugares e transições e os colocam em suas devidas listas
 	 * @param nos - a lista de nos a partir da qual o mapa será populado
 	 */
 	private static void populaMapa(final List<Nodo> nos) {
@@ -168,6 +171,7 @@ public class RedesPetri {
 		return new Transicao(nodo.getId(), nodo.getNome(), nodo.getTotal());
 	}
 
+
 	/**
 	 * Não deve ser chamada pelo menu, serve de interface
 	 */
@@ -222,15 +226,99 @@ public class RedesPetri {
 		}
 	}
 
+	/**
+	 * Função chamada para exibir os resultados da rede.
+	 * Exibe as alterações ocorridas para Lugares e Transições.
+	 */
 
-	
+	public static void renderTable() {
+		renderLugares();
+		renderTransicoes();
+	}
+
+	/**
+	 * Renderiza a tabela de lugares
+	 * nomeLugar instancia os nomes para cada um dos lugares presentes na rede.
+	 * marcasLugar representa as marcas disponíveis em cada lugar da rede.
+	 */
+
+	public static void renderLugares() {
+		AsciiTable lt = new AsciiTable();
+
+		String[] nomeLugar = new String[lugares.size() + 1];
+		String[] marcasLugar = new String[lugares.size() + 1];
+		int tempInt;
+
+		// Instancia o nome da categoria na primeira posição da linha
+		nomeLugar[0] = "Lugares";
+		marcasLugar[0] = "Marcas";
+
+		for(int i = 0; i < nomeLugar.length - 1; i++) {
+			nomeLugar[i + 1] = "L" + (i + 1);
+			tempInt = lugares.get(i).getEstado().getMarcas();
+			marcasLugar[i + 1] = String.valueOf(tempInt);
+		}
+
+		// Adiciona o cabeçalho na LugaresTable
+		lt.addRule();
+		lt.addRow(nomeLugar);
+		lt.addRule();
+		// Adiciona a quantidade de marcas disponíveis na LugaresTable
+		lt.addRow(marcasLugar);
+		lt.addRule();
+		// Setta a largura da LugaresTable
+		lt.getContext().setWidth(30);
+
+		String rend = lt.render();
+		System.out.println(rend);
+	}
+
+	/**
+	 * Renderiza a tabela de transições
+	 * nomeTransição instancia os nomes para cada uma das transições presentes na rede.
+	 * habilitadaTransição representa se dada transição foi habilitada.
+	 */
+	public static void renderTransicoes() {
+		AsciiTable tt = new AsciiTable();
+
+		String[] nomeTransição= new String[transicoes.size() + 1];
+		String[] habilitadaTransição= new String[transicoes.size() + 1];
+
+		// Instancia o nome da categoria na primeira posição da linha
+		nomeTransição[0] = "Transições";
+		habilitadaTransição[0] = "Habilitada";
+
+		for(int i = 0; i < nomeTransição.length - 1; i++) {
+			nomeTransição[i + 1] = "T" + (i + 1);
+			if (transicoes.get(i).getEstado().isHabilitado()) {
+				habilitadaTransição[i + 1] = "S";
+			} else {
+				habilitadaTransição[i + 1] = "N";
+			}
+		}
+
+		// Adiciona o cabeçalho na TransicaoTable
+		tt.addRule();
+		tt.addRow(nomeTransição);
+		tt.addRule();
+		// Adiciona o estado da transição na TransicaoTable
+		tt.addRow(habilitadaTransição);
+		tt.addRule();
+		// Setta a largura da TransicaoTable
+		tt.getContext().setWidth(30);
+
+		String rend = tt.render();
+		System.out.println(rend);
+	}
+
+
 	public List<Lugar> getLugares() {
 		return lugares;
 	}
 	public List<Transicao> getTransicoes() {
 		return transicoes;
 	}
-	public List<Conexao> getConexaos() {
+	public List<Conexao> getConexoes() {
 		return conexoes;
 	}
 	
