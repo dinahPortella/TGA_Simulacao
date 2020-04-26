@@ -2,10 +2,8 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.vandermeer.asciitable.*;
 
-import java.io.Console;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -14,26 +12,15 @@ public class RedesPetri {
 		/*NESSA CLASSE SERÁ LIDO O ARQUIVO JSON QUE ESPECIFICA UMA REDE,
 		* MONTADA A REDE E EXECUTADA*/
 
-	final static ObjectMapper mapper = new ObjectMapper();
-	private static List<Lugar> lugares = new ArrayList<>();
-	private static List<Transicao> transicoes = new ArrayList<>();
-	private static List<Conexao> conexoes = new ArrayList<>();
-	private static Map<Long, Nodo> mapa = new HashMap<>();
+	private final static ObjectMapper mapper = new ObjectMapper();
+	private final static List<Lugar> lugares = new ArrayList<>();
+	private static List<Estado> estadoLugares = new ArrayList<>();
+	private final static List<Transicao> transicoes = new ArrayList<>();
+	private static List<Estado> estadoTransicoes = new ArrayList<>();
+	private final static List<Conexao> conexoes = new ArrayList<>();
+	private final static Map<Long, Nodo> mapa = new HashMap<>();
 	private static Rede rede = new Rede();
-	private static List<Nodo> nodos;
-	private static String nome;
-	private static boolean preparado;
-	/*Arquivo JSON = Objeto hipotético correspondente a rede lida de um JSON*/
-	
-//	public RedesPetri(String nome, Arquivo JSON) {
-//		super();
-//		this.nome = nome;
-//		montaRede(JSON);
-//	}
-
-	/*NESSE MÉTODO, APLICA O JACKSON PRA LER O JSON E DESSERIALIZAR OS OBJETOS*/
-//		private void montaRede(Arquivo JSON){
-//	}
+	private static boolean verificado;
 
 	public static void main(String... args) {
 		leArquivo(testFile()); // Deverá ser passsado o arg[0] na versão final
@@ -42,7 +29,7 @@ public class RedesPetri {
 
 	private static void menu() { // menu principal
 		Scanner in = new Scanner(System.in);
-		int opcao = 0;
+		int opcao;
 		do {
 			System.out.println("0 - Finalizar o programa");
 			System.out.println("1 - Verifica o estado atual da rede");
@@ -51,19 +38,18 @@ public class RedesPetri {
 			opcao = in.nextInt();
 			System.out.print("\n");
 			switch (opcao) {
+				case 0:
+					break;
 				case 1:
 					verifica();
-					renderTable();
 					break;
 				case 2:
-					executa();
-					renderTable();
+					executa(true);
 					break;
 				case 3:
 					System.out.println("Quantos ciclos deseja executar:");
 					int total = in.nextInt();
 					rodaNciclos(total);
-					renderTable();
 					break;
 				default:
 					System.out.println("Opção Inválida!");
@@ -198,21 +184,27 @@ public class RedesPetri {
 	 */
 	private static void verifica() {
 		preparaCiclo();
-		// fazer lógica de imprimir tabela aqui
-		preparado = true;
+		getEstados();
+		renderTable();
+		verificado = true;
 	}
 
 	/**
 	 * Função a ser chamada pelo menu para executar 1 ciclo da rede
 	 */
-	private static void executa() {
-		// pegar estado da rede antes das transições e mostrar
-		if (!preparado) {
+	private static void executa(final boolean first) {
+		if (!verificado) {
 			preparaCiclo();
 		}
+		if (first) {
+			getEstados();
+			renderTable();
+		}
 		executaCiclo();
+		preparaCiclo();
+		getEstados();
+		renderTable();
 		// chamar preparar ciclo para verificar o estado das transições após o primeiro ciclo
-		preparado = false;
 	}
 
 	/**
@@ -220,9 +212,10 @@ public class RedesPetri {
 	 * @param total - o número de ciclos a serem executados
 	 */
 	private static void rodaNciclos(int total) {
-		while (total > 0) {
-			executa();
-			total--;
+		int cnt = total;
+		while (cnt > 0) {
+			executa(cnt == total);
+			cnt--;
 		}
 	}
 
@@ -245,26 +238,22 @@ public class RedesPetri {
 	public static void renderLugares() {
 		AsciiTable lt = new AsciiTable();
 
-		String[] nomeLugar = new String[lugares.size() + 1];
-		String[] marcasLugar = new String[lugares.size() + 1];
-		int tempInt;
+		List<String> nomes = new ArrayList<>();
+		nomes.add("Lugares");
+		List<String> status = new ArrayList<>();
+		status.add("Marcas");
 
-		// Instancia o nome da categoria na primeira posição da linha
-		nomeLugar[0] = "Lugares";
-		marcasLugar[0] = "Marcas";
-
-		for(int i = 0; i < nomeLugar.length - 1; i++) {
-			nomeLugar[i + 1] = "L" + (i + 1);
-			tempInt = lugares.get(i).getEstado().getMarcas();
-			marcasLugar[i + 1] = String.valueOf(tempInt);
+		for (Estado estado : estadoLugares) {
+			nomes.add(estado.getNome());
+			status.add(String.valueOf(estado.getMarcas()));
 		}
 
 		// Adiciona o cabeçalho na LugaresTable
 		lt.addRule();
-		lt.addRow(nomeLugar);
+		lt.addRow(nomes);
 		lt.addRule();
 		// Adiciona a quantidade de marcas disponíveis na LugaresTable
-		lt.addRow(marcasLugar);
+		lt.addRow(status);
 		lt.addRule();
 		// Setta a largura da LugaresTable
 		lt.getContext().setWidth(30);
@@ -281,28 +270,24 @@ public class RedesPetri {
 	public static void renderTransicoes() {
 		AsciiTable tt = new AsciiTable();
 
-		String[] nomeTransição= new String[transicoes.size() + 1];
-		String[] habilitadaTransição= new String[transicoes.size() + 1];
+		List<String> nomes = new ArrayList<>();
+		nomes.add("Transições");
+		List<String> status = new ArrayList<>();
+		status.add("Habilitada");
 
 		// Instancia o nome da categoria na primeira posição da linha
-		nomeTransição[0] = "Transições";
-		habilitadaTransição[0] = "Habilitada";
 
-		for(int i = 0; i < nomeTransição.length - 1; i++) {
-			nomeTransição[i + 1] = "T" + (i + 1);
-			if (transicoes.get(i).getEstado().isHabilitado()) {
-				habilitadaTransição[i + 1] = "S";
-			} else {
-				habilitadaTransição[i + 1] = "N";
-			}
+		for (Estado estado : estadoTransicoes) {
+			nomes.add(estado.getNome());
+			status.add(estado.isHabilitado() ? "S" : "N");
 		}
 
 		// Adiciona o cabeçalho na TransicaoTable
 		tt.addRule();
-		tt.addRow(nomeTransição);
+		tt.addRow(nomes);
 		tt.addRule();
 		// Adiciona o estado da transição na TransicaoTable
-		tt.addRow(habilitadaTransição);
+		tt.addRow(status);
 		tt.addRule();
 		// Setta a largura da TransicaoTable
 		tt.getContext().setWidth(30);
@@ -311,21 +296,13 @@ public class RedesPetri {
 		System.out.println(rend);
 	}
 
+	private static void getEstados() {
+		final List<Estado> el = new ArrayList<>();
+		final List<Estado> et = new ArrayList<>();
+		lugares.forEach(lugar -> el.add(lugar.getEstado()));
+		transicoes.forEach(transicao -> et.add(transicao.getEstado()));
+		estadoLugares = el;
+		estadoTransicoes = et;
+	}
 
-	public List<Lugar> getLugares() {
-		return lugares;
-	}
-	public List<Transicao> getTransicoes() {
-		return transicoes;
-	}
-	public List<Conexao> getConexoes() {
-		return conexoes;
-	}
-	
-	/*
-	@Override
-	public String toString() {
-		return null;
-		
-	}*/
 }
