@@ -23,7 +23,8 @@ public class RedesPetri {
 	private static List<Nodo> nodos;
 	private static String nome;
 	private static boolean preparado;
-	private static AsciiTable at = new AsciiTable();
+	private static AsciiTable lt = new AsciiTable();
+	private static AsciiTable tt = new AsciiTable();
 	/*Arquivo JSON = Objeto hipotético correspondente a rede lida de um JSON*/
 	
 //	public RedesPetri(String nome, Arquivo JSON) {
@@ -54,6 +55,7 @@ public class RedesPetri {
 			switch (opcao) {
 				case 1:
 					verifica();
+					renderTable();
 					break;
 				case 2:
 					executa();
@@ -63,6 +65,7 @@ public class RedesPetri {
 					System.out.println("Quantos ciclos deseja executar:");
 					int total = in.nextInt();
 					rodaNciclos(total);
+					renderTable();
 					break;
 				default:
 					System.out.println("Opção Inválida!");
@@ -223,16 +226,34 @@ public class RedesPetri {
 	}
 
 	public static void renderTable() {
-		at.addRule();
-		at.addRow("row 1 col 1", "row 1 col 2");
-		at.addRule();
-		at.addRow("row 2 col 1", "row 2 col 2");
-		at.addRule();
+		renderLugares();
+	}
 
-		String rend = at.render();
+	public static void renderLugares() {
+		String[] nomeLugar = new String[lugares.size() + 1];
+		String[] marcasLugar = new String[lugares.size() + 1];
+		int tempInt;
 
+		nomeLugar[0] = "Lugares";
+		marcasLugar[0] = "Marcas";
+
+		for(int i = 0; i < nomeLugar.length - 1; i++) {
+			nomeLugar[i + 1] = "L" + (i + 1);
+			tempInt = lugares.get(i).getEstado().getMarcas();
+			marcasLugar[i + 1] = String.valueOf(tempInt);
+		}
+
+		lt.addRule();
+		lt.addRow(nomeLugar);
+		lt.addRule();
+		lt.addRow(marcasLugar);
+		lt.addRule();
+		lt.getContext().setWidth(30);
+
+		String rend = lt.render();
 		System.out.println(rend);
 	}
+
 
 	public List<Lugar> getLugares() {
 		return lugares;
