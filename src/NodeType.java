@@ -7,16 +7,16 @@ public enum NodeType {
     private final String nome;
     private final Class<? extends Nodo> classe;
 
-    private NodeType(String nome, Class<? extends Nodo> classe) {
+    NodeType(String nome, Class<? extends Nodo> classe) {
         this.nome = nome;
         this.classe = classe;
     }
 
-    private String getNome() {
+    public String getNome() {
         return nome;
     }
 
-    private Class<? extends Nodo> getClasse() {
+    public Class<? extends Nodo> getClasse() {
         return classe;
     }
 }
