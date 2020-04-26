@@ -225,16 +225,28 @@ public class RedesPetri {
 		}
 	}
 
+	/**
+	 * Função chamada para exibir os resultados da rede.
+	 * Exibe as alterações ocorridas para Lugares e Transições.
+	 */
+
 	public static void renderTable() {
 		renderLugares();
 		renderTransicoes();
 	}
+
+	/**
+	 * Renderiza a tabela de lugares
+	 * nomeLugar instancia os nomes para cada um dos lugares presentes na rede.
+	 * marcasLugar representa as marcas disponíveis em cada lugar da rede.
+	 */
 
 	public static void renderLugares() {
 		String[] nomeLugar = new String[lugares.size() + 1];
 		String[] marcasLugar = new String[lugares.size() + 1];
 		int tempInt;
 
+		// Instancia o nome da categoria na primeira posição da linha
 		nomeLugar[0] = "Lugares";
 		marcasLugar[0] = "Marcas";
 
@@ -244,21 +256,30 @@ public class RedesPetri {
 			marcasLugar[i + 1] = String.valueOf(tempInt);
 		}
 
+		// Adiciona o cabeçalho na LugaresTable
 		lt.addRule();
 		lt.addRow(nomeLugar);
 		lt.addRule();
+		// Adiciona a quantidade de marcas disponíveis na LugaresTable
 		lt.addRow(marcasLugar);
 		lt.addRule();
+		// Setta a largura da LugaresTable
 		lt.getContext().setWidth(30);
 
 		String rend = lt.render();
 		System.out.println(rend);
 	}
 
+	/**
+	 * Renderiza a tabela de transições
+	 * nomeTransição instancia os nomes para cada uma das transições presentes na rede.
+	 * habilitadaTransição representa se dada transição foi habilitada.
+	 */
 	public static void renderTransicoes() {
 		String[] nomeTransição= new String[transicoes.size() + 1];
 		String[] habilitadaTransição= new String[transicoes.size() + 1];
 
+		// Instancia o nome da categoria na primeira posição da linha
 		nomeTransição[0] = "Transições";
 		habilitadaTransição[0] = "Habilitada";
 
@@ -271,11 +292,14 @@ public class RedesPetri {
 			}
 		}
 
+		// Adiciona o cabeçalho na TransicaoTable
 		tt.addRule();
 		tt.addRow(nomeTransição);
 		tt.addRule();
+		// Adiciona o estado da transição na TransicaoTable
 		tt.addRow(habilitadaTransição);
 		tt.addRule();
+		// Setta a largura da TransicaoTable
 		tt.getContext().setWidth(30);
 
 		String rend = tt.render();
