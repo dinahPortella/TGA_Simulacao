@@ -227,6 +227,7 @@ public class RedesPetri {
 
 	public static void renderTable() {
 		renderLugares();
+		renderTransicoes();
 	}
 
 	public static void renderLugares() {
@@ -251,6 +252,33 @@ public class RedesPetri {
 		lt.getContext().setWidth(30);
 
 		String rend = lt.render();
+		System.out.println(rend);
+	}
+
+	public static void renderTransicoes() {
+		String[] nomeTransição= new String[transicoes.size() + 1];
+		String[] habilitadaTransição= new String[transicoes.size() + 1];
+
+		nomeTransição[0] = "Transições";
+		habilitadaTransição[0] = "Habilitada";
+
+		for(int i = 0; i < nomeTransição.length - 1; i++) {
+			nomeTransição[i + 1] = "T" + (i + 1);
+			if (transicoes.get(i).getEstado().isHabilitado()) {
+				habilitadaTransição[i + 1] = "S";
+			} else {
+				habilitadaTransição[i + 1] = "N";
+			}
+		}
+
+		tt.addRule();
+		tt.addRow(nomeTransição);
+		tt.addRule();
+		tt.addRow(habilitadaTransição);
+		tt.addRule();
+		tt.getContext().setWidth(30);
+
+		String rend = tt.render();
 		System.out.println(rend);
 	}
 
