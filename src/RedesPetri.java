@@ -1,6 +1,7 @@
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -36,11 +37,38 @@ public class RedesPetri {
 //	}
 
 	public static void main(String... args) {
-		System.out.println("olá");
 		leArquivo(testFile()); // Deverá ser passsado o arg[0] na versão final
-		System.out.println("ok");
+		menu();
 	}
 
+	private static void menu() { // menu principal
+		Scanner in = new Scanner(System.in);
+		int opcao = 0;
+		do {
+			System.out.println("0 - Finalizar o programa");
+			System.out.println("1 - Veriica o estado atual da rede");
+			System.out.println("2 - Executa um ciclo e exibe o resultado");
+			System.out.println("3 - Executa x ciclos e exibe o resultado");
+			opcao = in.nextInt();
+			System.out.print("\n");
+			switch (opcao) {
+				case 1:
+					verifica();
+					break;
+				case 2:
+					executa();
+					break;
+				case 3:
+					System.out.println("Quantos ciclos deseja executar:");
+					int total = in.nextInt();
+					rodaNciclos(total);
+					break;
+				default:
+					System.out.println("Opção Inválida!");
+					break;
+			}
+		} while (opcao != 0);
+	}
 	/**
 	 * Método temporário, utilizado para testes, deve ser removido, passa o endereço do arquivo input
 	 * @return - o local do arquivo rede.json
