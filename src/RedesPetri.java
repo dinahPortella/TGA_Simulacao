@@ -1,5 +1,6 @@
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.vandermeer.asciitable.*;
 
 import java.io.Console;
 import java.io.File;
@@ -22,6 +23,7 @@ public class RedesPetri {
 	private static List<Nodo> nodos;
 	private static String nome;
 	private static boolean preparado;
+	private static AsciiTable at = new AsciiTable();
 	/*Arquivo JSON = Objeto hipotético correspondente a rede lida de um JSON*/
 	
 //	public RedesPetri(String nome, Arquivo JSON) {
@@ -55,6 +57,7 @@ public class RedesPetri {
 					break;
 				case 2:
 					executa();
+					renderTable();
 					break;
 				case 3:
 					System.out.println("Quantos ciclos deseja executar:");
@@ -219,13 +222,25 @@ public class RedesPetri {
 		}
 	}
 
+	public static void renderTable() {
+		at.addRule();
+		at.addRow("row 1 col 1", "row 1 col 2");
+		at.addRule();
+		at.addRow("row 2 col 1", "row 2 col 2");
+		at.addRule();
+
+		String rend = at.render();
+
+		System.out.println(rend);
+	}
+
 	public List<Lugar> getLugares() {
 		return lugares;
 	}
 	public List<Transicao> getTransicoes() {
 		return transicoes;
 	}
-	public List<Conexao> getConexaos() {
+	public List<Conexao> getConexoes() {
 		return conexoes;
 	}
 	

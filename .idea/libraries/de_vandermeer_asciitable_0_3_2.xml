@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="de.vandermeer:asciitable:0.3.2" type="repository">
+    <properties maven-id="de.vandermeer:asciitable:0.3.2" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/asciitable-0.3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ascii-utf-themes-0.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/skb-interfaces-0.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/commons-lang3-3.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ST4-4.0.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/antlr-runtime-3.5.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/antlr4-4.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/slf4j-api-1.7.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/char-translation-0.0.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
