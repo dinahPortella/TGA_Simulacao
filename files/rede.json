@@ -1,0 +1,34 @@
+{
+  "nos": [
+    {
+      "id": 1,
+      "nome": "bob",
+      "tipo": 1,
+      "total": 4
+    },
+    {
+      "id": 1,
+      "nome": "ana",
+      "tipo": 2,
+      "total": 0
+    },
+    {
+      "id": 2,
+      "nome": "joe",
+      "tipo": 1,
+      "total": 0
+    }
+  ],
+  "arcos": [
+    {
+      "total": 0,
+      "origem": 11,
+      "destino": 21
+    },
+    {
+      "total": 0,
+      "origem": 21,
+      "destino": 12
+    }
+  ]
+}

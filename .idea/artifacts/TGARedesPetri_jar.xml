@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TGARedesPetri:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/TGARedesPetri_jar</output-path>
+    <root id="archive" name="TGARedesPetri.jar">
+      <element id="module-output" name="TGARedesPetri" />
+    </root>
+  </artifact>
+</component>
