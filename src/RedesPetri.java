@@ -194,6 +194,7 @@ public class RedesPetri {
 	 */
 	private static void verifica() {
 		preparaCiclo();
+		// fazer lógica de imprimir tabela aqui
 		preparado = true;
 	}
 
@@ -201,10 +202,12 @@ public class RedesPetri {
 	 * Função a ser chamada pelo menu para executar 1 ciclo da rede
 	 */
 	private static void executa() {
+		// pegar estado da rede antes das transições e mostrar
 		if (!preparado) {
 			preparaCiclo();
 		}
 		executaCiclo();
+		// chamar preparar ciclo para verificar o estado das transições após o primeiro ciclo
 		preparado = false;
 	}
 

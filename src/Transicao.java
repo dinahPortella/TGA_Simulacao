@@ -35,7 +35,8 @@ public class Transicao extends Nodo {
 	 * @return - Um boolean indicando se a transição está ou não habilitada
 	 */
 	private boolean habilitada() {
-		return estado == TransitionState.HABILITADA.ordinal();
+
+		return estado == TransitionState.HABILITADA_ESCOLHIDA.ordinal() || estado == TransitionState.HABILITADA_N_ESCOLHIDA.ordinal();
 	}
 
 	/**
@@ -43,12 +44,15 @@ public class Transicao extends Nodo {
 	 */
 	public void checaTransicao() {
 		checaEscolha();
-		if (estado == TransitionState.ESCOLHIDA.ordinal()) {
-			if (checkOrigins()) {
-				estado = TransitionState.HABILITADA.ordinal();
+		boolean escolhida = estado == TransitionState.ESCOLHIDA.ordinal();
+		if (checkOrigins(escolhida)) {
+			if (escolhida) {
+				estado = TransitionState.HABILITADA_ESCOLHIDA.ordinal();
 			} else {
-				estado = TransitionState.VERIFICADA.ordinal();
+				estado = TransitionState.HABILITADA_N_ESCOLHIDA.ordinal();
 			}
+		} else {
+			estado = TransitionState.VERIFICADA.ordinal();
 		}
 	}
 
@@ -72,7 +76,7 @@ public class Transicao extends Nodo {
 	 * Se todos as entradas possuem marcas suficientes, também é feita a reserva das marcas em preparação para execução
 	 * @return - Um boolean indicando se todas as entradas possuem marcas suficientes ou não
 	 */
-	public boolean checkOrigins() {
+	public boolean checkOrigins(boolean escolhida) {
 		boolean out = true;
 		for (Conexao conexao : entradas) {
 			if (conexao.getLugar().getTotal() < conexao.getTotal()) {
@@ -80,10 +84,12 @@ public class Transicao extends Nodo {
 				break;
 			}
 		}
-		if (out) {
-			for (Conexao conexao : entradas) {
-				int necessario = conexao.getTotal();
-				conexao.getLugar().preparaTransicao(necessario);
+		if (escolhida) {
+			if (out) {
+				for (Conexao conexao : entradas) {
+					int necessario = conexao.getTotal();
+					conexao.getLugar().preparaTransicao(necessario);
+				}
 			}
 		}
 		return out;
@@ -93,7 +99,7 @@ public class Transicao extends Nodo {
 	 * Executa a transição, consumindo marcas e resetando o estado em preparação para o próximo ciclo
 	 */
 	public void executaTransicao() {
-		if(habilitada()) {
+		if(estado == TransitionState.HABILITADA_ESCOLHIDA.ordinal()) {
 			consomeMarcas();
 			passaMarcas();
 		}

@@ -3,7 +3,8 @@ public enum TransitionState {
     OCIOSA("Ociosa"),
     ESCOLHIDA("Escolhida"),
     VERIFICADA("Verificada"),
-    HABILITADA("Habilitada");
+    HABILITADA_ESCOLHIDA("Habilitada e escolhida"),
+    HABILITADA_N_ESCOLHIDA("Habilitada e não escolhida");
 
     private final String nome;
 
