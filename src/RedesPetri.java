@@ -23,8 +23,6 @@ public class RedesPetri {
 	private static List<Nodo> nodos;
 	private static String nome;
 	private static boolean preparado;
-	private static AsciiTable lt = new AsciiTable();
-	private static AsciiTable tt = new AsciiTable();
 	/*Arquivo JSON = Objeto hipotético correspondente a rede lida de um JSON*/
 	
 //	public RedesPetri(String nome, Arquivo JSON) {
@@ -242,6 +240,8 @@ public class RedesPetri {
 	 */
 
 	public static void renderLugares() {
+		AsciiTable lt = new AsciiTable();
+
 		String[] nomeLugar = new String[lugares.size() + 1];
 		String[] marcasLugar = new String[lugares.size() + 1];
 		int tempInt;
@@ -276,6 +276,8 @@ public class RedesPetri {
 	 * habilitadaTransição representa se dada transição foi habilitada.
 	 */
 	public static void renderTransicoes() {
+		AsciiTable tt = new AsciiTable();
+
 		String[] nomeTransição= new String[transicoes.size() + 1];
 		String[] habilitadaTransição= new String[transicoes.size() + 1];
 
