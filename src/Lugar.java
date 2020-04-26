@@ -54,13 +54,15 @@ public class Lugar extends Nodo {
      * Escolhe qual transição vai ser disparada
      */
     public void escolheTransicao() {
-        Transicao escolhida;
-        if (saidas.size() > 1) {
-            escolhida = sorteiaTransicao();
-        } else {
-            escolhida = saidas.get(0).getTransicao();
+        if (!saidas.isEmpty()) {
+            Transicao escolhida;
+            if (saidas.size() > 1) {
+                escolhida = sorteiaTransicao();
+            } else {
+                escolhida = saidas.get(0).getTransicao();
+            }
+            escolhida.escolhe();
         }
-        escolhida.escolhe();
     }
 
     /**
