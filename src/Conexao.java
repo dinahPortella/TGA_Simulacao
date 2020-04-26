@@ -6,7 +6,7 @@ public class Conexao {
 	private Transicao transicao;
 	private boolean saida;
 
-	/*A EXECUÇÃO DA REDE SE DARÁ EM CIMA DOS ARCOS, ELES SERÃO LIDOS E AJUSTAÇÃO AS MARCAS DOS LUGARES*/
+	/*A EXECUÇÃO DA REDE SE DARÁ EM CIMA DOS ARCOS QUE SERÃO LIDOS E AJUSTADAS AS MARCAS AOS LUGARES*/
 	public Conexao(Nodo origem, Nodo destino, int total) {
 		if (total < 1) {
 			total = 1;

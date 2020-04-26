@@ -13,8 +13,6 @@ public class RedesPetri {
 		/*NESSA CLASSE SERÁ LIDO O ARQUIVO JSON QUE ESPECIFICA UMA REDE,
 		* MONTADA A REDE E EXECUTADA*/
 
-		/*ALGUSN MÉTODOS QUE USO AQUI AINDA NÃO EXISTEM, PRECISAM SER CRIADOS*/
-
 	final static ObjectMapper mapper = new ObjectMapper();
 	private static List<Lugar> lugares = new ArrayList<>();
 	private static List<Transicao> transicoes = new ArrayList<>();
@@ -24,7 +22,7 @@ public class RedesPetri {
 	private static List<Nodo> nodos;
 	private static String nome;
 	private static boolean preparado;
-	/*Arquivo JSON  = Objeto hipotético que seria a rede lida de um JSON*/
+	/*Arquivo JSON = Objeto hipotético correspondente a rede lida de um JSON*/
 	
 //	public RedesPetri(String nome, Arquivo JSON) {
 //		super();
@@ -33,7 +31,7 @@ public class RedesPetri {
 //	}
 
 	/*NESSE MÉTODO, APLICA O JACKSON PRA LER O JSON E DESSERIALIZAR OS OBJETOS*/
-//	private void montaRede(Arquivo JSON){
+//		private void montaRede(Arquivo JSON){
 //	}
 
 	public static void main(String... args) {
@@ -46,7 +44,7 @@ public class RedesPetri {
 		int opcao = 0;
 		do {
 			System.out.println("0 - Finalizar o programa");
-			System.out.println("1 - Veriica o estado atual da rede");
+			System.out.println("1 - Verifica o estado atual da rede");
 			System.out.println("2 - Executa um ciclo e exibe o resultado");
 			System.out.println("3 - Executa x ciclos e exibe o resultado");
 			opcao = in.nextInt();
@@ -69,6 +67,7 @@ public class RedesPetri {
 			}
 		} while (opcao != 0);
 	}
+
 	/**
 	 * Método temporário, utilizado para testes, deve ser removido, passa o endereço do arquivo input
 	 * @return - o local do arquivo rede.json
@@ -104,7 +103,7 @@ public class RedesPetri {
 	}
 
 	/**
-	 * Popula o mapa da rede com os nos, e também cria os lugares e transições e os poem em suas devidas listas
+	 * Popula o mapa da rede com os nos, e também cria os lugares e transições e os colocam em suas devidas listas
 	 * @param nos - a lista de nos a partir da qual o mapa será populado
 	 */
 	private static void populaMapa(final List<Nodo> nos) {
@@ -168,6 +167,7 @@ public class RedesPetri {
 		return new Transicao(nodo.getId(), nodo.getNome(), nodo.getTotal());
 	}
 
+
 	/**
 	 * Não deve ser chamada pelo menu, serve de interface
 	 */
@@ -219,8 +219,6 @@ public class RedesPetri {
 		}
 	}
 
-
-	
 	public List<Lugar> getLugares() {
 		return lugares;
 	}
