@@ -23,7 +23,7 @@ public class RedesPetri {
 	private static boolean verificado;
 
 	public static void main(String... args) {
-		leArquivo(testFile()); // Deverá ser passsado o arg[0] na versão final
+		leArquivo(args[0]); // Deverá ser passsado o arg[0] na versão final
 		menu();
 	}
 
