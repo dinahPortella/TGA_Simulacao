@@ -1,21 +1,41 @@
-TGA_Simulacao
+# Simulador de Redes de Petri
+Este projeto permite a montagem e execução de uma Rede de Petri de através de um arquivo.
 
-Uso básico do programa java -jar RedesPetri.jar path/input.json
+## Modo de uso
+O programa pode ser executado diretamente em console através do comando:
+` -jar RedesPetri.jar path/input.json`
+- Recomenda-se a utilização de Java 1.8.
 
-O arquivo json deve ser um objeto Rede que tem 2 listas como campo de atributos, o primeiro é uma lista de nodos, e o segundo uma lista de arcos
+### Arquivos necessários
+O arquivo `RedesPetri.jar ` por ser encontrado na pasta [/releases](https://github.com/dinahPortella/TGA_Simulacao/tree/master/release "/releases") deste diretório.
 
+O arquivo `input.json` representa uma Rede de Petri.
+- A pasta [/files](https://github.com/dinahPortella/TGA_Simulacao/tree/master/files "/files") deste diretório apresenta 3 exemplos de Redes de Petri.
 
-Arco:
-    - total: int - campo que indica a multiplicidade do arco
-    - origem: long - campo que indica o id do nodo de origem
-    - destino: long - campo que indica o id do nodo de destino
-    - o formato dos Ids dos nodos é TN, onde T é o número que indica o tipo de nodo, 1 lugar, 2 transição, e N é o campo id do nodo
-    - Arcos devem obrigatoriamente ser formados entre lugar e transição, ambos podem ser origem e destino, mas um arco com nodos do mesmo tipo para origem e destino é inválido
-    
-Nodo:
-    - id: int - O id do nodo, ele é juntado com o tipo para gerar um id universal para lugares e transições
-    - nome: String - O nome do nodo, utilizado na hora de exibir as informações da rede
-    - tipo: int - O tipo de nodo, 1 para lugar, 2 para transição
-    - total: int - A quantidade de marcas do lugar, não utilizado para transições
-    
-O projeto possui 3 jsons como exemplo básico de redes
+#### Rede de Petri
+A rede representada através do arquivo apresenta duas listas como campo de atributos. O primeiro é uma lista de nodos e o segundo é uma lista de arcos.
+
+##### Nodo
+| Nome  | Tipo  | Utilização |
+| :------------ | :------------ | :------------ |
+| id  | `int`  | Junto ao `tipo` gera um id universal lugares e transições. |
+| nome  | `String`  | Utilizado para exibir as informações da rede. |
+| tipo  | `int`  | 1 - Representa lugar;  2 - Representa transição.  |
+| total  | `int`  | Quantidade de marcas em um lugar (não utilizado em transições).  |
+- Na rede, o formato dos Ids do nodos é TN. T indica o `tipo` de nodo e N o campo `id` do nodo.
+
+##### Arco
+| Nome  | Tipo  | Utilização |
+| :------------ | :------------ | :------------ |
+| total  | `int`  | Indica multiplicidade do arco  |
+| origem  | `long`  | Indicica o `id` do nodo de origem  |
+| destino  | `long`  | Indica o `id` do nodo de destino  |
+- Arcos devem obrigatoriamente ser formados entre lugar e transição.
+-- Tanto lugar quando transição podem ser `origem` ou `destino`.
+-- Um arco com nodos do mesmo `tipo` para `origem` e `destino` é inválido.
+
+## Autores
+- **Bruno Schubert Medeiros**
+- **Dinah Denovaro Portella Neta**
+- **Lucas dos Santos Pletsch**
+- **Samuel Weber**
