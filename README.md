@@ -31,8 +31,8 @@ A rede representada através do arquivo apresenta duas listas como campo de atri
 | origem  | `long`  | Indicica o `id` do nodo de origem  |
 | destino  | `long`  | Indica o `id` do nodo de destino  |
 - Arcos devem obrigatoriamente ser formados entre lugar e transição.
--- Tanto lugar quando transição podem ser `origem` ou `destino`.
--- Um arco com nodos do mesmo `tipo` para `origem` e `destino` é inválido.
+- Tanto lugar quando transição podem ser `origem` ou `destino`.
+- Um arco com nodos do mesmo `tipo` para `origem` e `destino` é inválido.
 
 ## Autores
 - **Bruno Schubert Medeiros**
