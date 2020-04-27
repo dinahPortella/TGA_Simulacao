@@ -1,5 +1,5 @@
 # Simulador de Redes de Petri
-Este projeto permite a montagem e execução de uma Rede de Petri de através de um arquivo.
+Este projeto permite a montagem e execução de uma Rede de Petri através de um arquivo.
 
 ## Modo de uso
 O programa pode ser executado diretamente em console através do comando:
